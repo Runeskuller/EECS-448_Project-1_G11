@@ -7,7 +7,7 @@ class gameBoard:
 
 	#Constructor: Creates a 2D array of integers with all spots marked empty(0)
 	def __init__(self):
-		self.board = [[int(0)]*self.columns]*self.rows
+		self.board = [[int(0) for i in range(self.columns)] for j in range(self.rows)]
 
 	#Returns the content of the specified tile
 	def getTile(self, row, column):
@@ -31,8 +31,46 @@ class gameBoard:
 
 	#Prints the grid, showing ships and hits and misses
 	def printPlayerView(self):
-		pass
+		print("   ", end = '')
+		for i in range(self.columns):
+			char = chr(65+i)
+			print(char, " ", end = '')
+
+		print()
+
+		for i in range(self.rows):
+			print(i+1, " ", end = '')
+			for j in range(self.columns):
+				print(self.board[i][j], " ", end = '')
+			print()
 
 	#Prints the grid, showing only hits and misses
 	def printOpponentView(self):
-		pass
+		print("   ", end = '')
+		for i in range(self.columns):
+			char = chr(65+i)
+			print(char, " ", end = '')
+
+		print()
+
+		for i in range(self.rows):
+			print(i+1, " ", end = '')
+			for j in range(self.columns):
+				if self.board[i][j] == 'X' or self.board[i][j] == '*':
+					print(self.board[i][j], " ", end = '')
+				else:
+					print('0', " ", end = '')
+			print()
+
+
+#Testing methods
+board = gameBoard()
+
+board.board[0][0] = 7
+board.board[1][1] = '*'
+board.board[2][2] = 'X'
+board.board[3][3] = 3
+
+board.printPlayerView()
+print()
+board.printOpponentView()
