@@ -3,6 +3,7 @@ class gameBoard:
 	columns = 10
 	rows = 9
 	
+	#test change
 
 	#Constructor: Creates a 2D array of integers with all spots marked empty(0)
 	def __init__(self):
