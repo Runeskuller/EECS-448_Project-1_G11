@@ -36,7 +36,6 @@ class Grid:
                     if alphabet.index(row) + size < 10: 
                         for i in range(alphabet.index(row), alphabet.index(row) + size):
                             if self.grid[i+1][col] != "X":
-                            #TODO: do something other than set success to true here
                                 fail = True
                                 
                         if fail:
@@ -64,7 +63,7 @@ grid1 = Grid()
 grid1.printBoard()
 print(grid1.getStatus(1,5))
 
-grid1.fireShot(0,4)
+grid1.shotOn(0,4)
 grid1.placeShip(5, 1, "D", 5)
 grid1.placeShip(4, 1, "A", 5 )
 grid1.printBoard()
