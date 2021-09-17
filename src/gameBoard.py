@@ -38,7 +38,7 @@ class Executive:
 			print( ShipNames[i] )
 			Input_orientation = (input("What orientation would you like(H/V)?: "))
 			Input_x_coordinates = (input("Where do you want the Ship to be placed on x-axis(eg.A): "))
-			y_coordinates = (input("Where do you want the Ship to be placed on y-axis(eg.4): "))
+			y_coordinates = int(input("Where do you want the Ship to be placed on y-axis(eg.4): "))
 			ShipSize = int(i+1)
 			if (Input_orientation =='H' or Input_orientation == 'h'):
     				orientation = False
