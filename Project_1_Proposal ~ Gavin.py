@@ -18,9 +18,9 @@ class Executive:
 		self.setUp(self.boardOne)
 		self.setUp(self.boardTwo)
 		#Each player takes their turn
-		self.takeTurn(boardOne, boardTwo)
+		self.takeTurn(self.boardOne, self.boardTwo)
 		self.transitionScreen()
-		self.takeTurn(boardTwo, boardOne)
+		self.takeTurn(self.boardTwo, self.boardOne)
 		self.transitionScreen()
 		#Loop through above logic until someone wins
 		self.winScreen()
@@ -28,8 +28,19 @@ class Executive:
 
 	#Performs the board setup for one player's board. Ships do not have to be placed in order. Will not let players place ships in an invalid spot
 	def setUp(self, gameBoard):
-		pass
+		ShipNames =["LifeBoat(size=1)", "The Destroyer(size=2)", "Submarine(size=3)", "BattleShip(size=4)", "Carrier(size=5)", "Cruiser(size=6)"]
+		for i in self.numShips: 
+			print( ShipNames[i] )
+			orientation = (input("What orientation would you like(H/V)?: "))
+			x_coordinates = (input("Where do you want the Ship to be placed on x-axis(eg.A): "))
+			y_coordinates = (input("Where do you want the Ship to be placed on y-axis(eg.4): "))
+			ShipSize = int(i)
+			gameBoard.placeShip(ShipSize, orientation, y_coordinates, x_coordinates)
+				
+		
 
+		
+		
 	#Shows player their view of both game boards, asks for a row and column, then performs a shot. 
 	# ?Returns an array containing [row of shot, column of shot, 0-6 miss/ship hit]?
 	def takeTurn(self, playerBoard, opponentBoard):
