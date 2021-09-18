@@ -23,15 +23,15 @@ class gameBoard:
 				if row in range(1,9) and col in range(1, 10):
 					if row + size <= 10:
 						for i in range(row, row + size):
-							if self.board[i-1][col] != "0":
+							if self.board[i-1][col-1] != "0":
 								fail = True
 
 						if fail:
 							break
 
 						for i in range(row, row + size):
-							if self.board[i-1][col] == "0":
-								self.board[i-1][col] = str(size)
+							if self.board[i-1][col-1] == "0":
+								self.board[i-1][col-1] = str(size)
 								success = True
 					else:
 						break
