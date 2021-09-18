@@ -12,6 +12,9 @@ class Executive:
 
 	#Calls upon internal methods in order
 	def runGame(self):
+		#variable needed to transfer information from self.takeTurn to self.transition - andrew
+		#turnResult = ? - andrew
+
 		#Ask how many ships there will be
 		self.numShips1 = int(input("Player 1: How many ships would you like in your BattleShip game: "))
 		self.numShips2 = int(input("Player 2: How many ships would you like in your BattleShip game: "))
@@ -19,11 +22,26 @@ class Executive:
 		#Set up each player's board
 		self.setUp(self.boardOne, self.numShips1)
 		self.setUp(self.boardTwo, self.numShips2)
+
+		
 		# #Each player takes their turn
 		# self.takeTurn(self.boardOne, self.boardTwo)
-		# self.transitionScreen()
+
+		# display transition turn for player one, if player one has won break out of loop
+		#if(self.transitionScreen(turnResult))
+		#	break
+
+		#increment the playerTurn
+		playerTurn += 1
+
 		# self.takeTurn(self.boardTwo, self.boardOne)
-		# self.transitionScreen()
+
+		# display transition turn for player two, if player two has won break out of loop
+		#if(self.transitionScreen())
+		#	break
+
+		#increment the playerTurn
+		playerTurn += 1
 		# #Loop through above logic until someone wins
 		# self.winScreen()
 		
@@ -44,6 +62,8 @@ class Executive:
     				orientation = False
 			elif (Input_orientation == 'V' or Input_orientation == 'v'):
     				orientation = True
+
+			#WHY, why does this exist. just submit the input_x_coordinates to the Gameboard!!! - Andrew
 			for i in range(0, 9):
     				if(alphabet[i] == Input_x_coordinates):
 					     x_coordinates = i+1 
@@ -69,7 +89,22 @@ class Executive:
 	#Displays the result of the last shot (hit/miss, which ship was hit/sunk). If a ship was sunk, check if game has been won. If so, end loop and go to winscreen.
 	# If not, ask to give control to next player and wait for confirmation
 	def transitionScreen(self, turnResults):
-		pass
+		#If this is the return variable, and if it is true, then the game ends
+		endGame = False
+
+		#display the turn
+		print("The turn is " + self.playerTurn)
+
+		#display the result of the last shot, and check if that ship was sunk, and check if the game has been won.
+		if(self.playerTurn % 2 == 1):
+			if(self.boardTwo.gameLost()):
+				endGame = True
+		else:
+			if(self.boardOne.gameLost()):
+				endGame = True
+
+		return endGame
+
 
 	#Displays both boards and announces the winner
 	def winScreen(self):
