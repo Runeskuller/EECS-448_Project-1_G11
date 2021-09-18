@@ -45,6 +45,9 @@ class Executive:
 		#display the turn
 		print("The turn is " + self.playerTurn)
 
+		#display where shot
+		print("Shot on row " + turnResult[0] + " and col " + turnResult[1])
+
 		#display the result of the last shot, and check if that ship was sunk, and check if the game has been won.
 		if(not self.playerTurn):
 			if(turnResults[2] != 0):
@@ -53,6 +56,7 @@ class Executive:
 					endGame = True
 			else:
 				print("You missed!")
+			print("please return control to player 1, input any key when done")
 		else:
 			if(turnResults[2] != 0):
 				print("Hit! You hit a " + ShipNames[turnResults[2]])
@@ -60,6 +64,9 @@ class Executive:
 					endGame = True
 			else:
 				print("You missed!")
+			print("please return control to player 1, input any key when done")
+
+		input()
 
 		return endGame
 
