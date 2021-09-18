@@ -241,16 +241,3 @@ class gameBoard:
 				else:
 					print('0', " ", end = '')
 			print()
-
-
-Exec = Executive()
-Exec.runGame()
-
-grid1 = gameBoard()
-grid1.printPlayerView()
-print(grid1.getTile(1,5))
-
-grid1.shotOn(0,4)
-grid1.placeShip(5, 1, 6, 7)
-grid1.placeShip(4, 1, 6, 7)
-grid1.printPlayerView()
