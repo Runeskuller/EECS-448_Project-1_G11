@@ -25,26 +25,31 @@ class Executive:
 		self.setUp(self.boardOne, self.numShips1)
 		self.setUp(self.boardTwo, self.numShips2)
 
-		
-		# #Each player takes their turn
-		# turnResult = self.takeTurn(self.boardOne, self.boardTwo)
+		gameOver = False
+		while not(gameOver):
+			self.roundNum += 1
+			#Each player takes their turn
+			turnResult = self.takeTurn(self.boardOne, self.boardTwo)
 
-		# display transition turn for player one, if player one has won break out of loop
-		#if(self.transitionScreen(turnResult))
-		#	break
+			# display transition turn for player one, if player one has won break out of loop
+			if(self.transitionScreen(turnResult)):
+				gameOver = True
+				break
 
-		#increment the playerTurn
-		playerTurn = (playerTurn + 1) % 2
+			#increment the playerTurn
+			self.playerTurn = (self.playerTurn + 1) % 2
 
-		# turnResult = self.takeTurn(self.boardTwo, self.boardOne)
+			turnResult = self.takeTurn(self.boardTwo, self.boardOne)
 
-		# display transition turn for player two, if player two has won break out of loop
-		#if(self.transitionScreen(turnResult))
-		#	break
+			# display transition turn for player two, if player two has won break out of loop
+			if(self.transitionScreen(turnResult)):
+				gameOver = True
+				break
 
-		#increment the playerTurn
-		playerTurn = (playerTurn + 1) % 2
-		# #Loop through above logic until someone wins
+			#increment the playerTurn
+			self.playerTurn = (self.playerTurn + 1) % 2
+			# #Loop through above logic until someone wins
+
 		self.winScreen()
 		
 
@@ -57,19 +62,21 @@ class Executive:
 		for i in range(numShips):
 			print( ShipNames[i] )
 			Input_orientation = (input("What orientation would you like(H/V)?: "))
-			Input_x_coordinates = (input("Where do you want the Ship to be placed on x-axis(eg.A): "))
+			x_coordinates = (input("Where do you want the Ship to be placed on x-axis(eg.A): "))
+			x_coordinates.capitalize()
+			x_coordinates = ord(x_coordinates) - 64
 			y_coordinates = int(input("Where do you want the Ship to be placed on y-axis(eg.4): "))
 			ShipSize = int(i+1)
 			if (Input_orientation =='H' or Input_orientation == 'h'):
-    				orientation = False
+				orientation = False
 			elif (Input_orientation == 'V' or Input_orientation == 'v'):
-    				orientation = True
+				orientation = True
 
 			#WHY, why does this exist. just submit the input_x_coordinates to the Gameboard!!! - Andrew
-			for i in range(0, 9):
-    				if(alphabet[i] == Input_x_coordinates):
-					     x_coordinates = i+1 
-						 
+#			for i in range(0, 9):
+#				if(alphabet[i] == Input_x_coordinates):
+#					x_coordinates = i+1 
+
 			gameBoard.placeShip(ShipSize, orientation, y_coordinates, x_coordinates)
 			gameBoard.printPlayerView()
 			print(x_coordinates)
@@ -80,7 +87,20 @@ class Executive:
 	#Shows player their view of both game boards, asks for a row and column, then performs a shot. 
 	# ?Returns an array containing [row of shot, column of shot, 0-6 miss/ship hit]?
 	def takeTurn(self, playerBoard, opponentBoard):
-		pass
+		clear()
+		print("Enemy's Waters")
+		opponentBoard.printOpponentView()
+		print()
+		print("Friendly Territory")
+		playerBoard.printPlayerView()
+		print()
+		row = int(input("Input target row: "))
+		column = input("Input target column: ")
+		column.capitalize()
+		column = ord(column) - 64
+		hitOrMiss = opponentBoard.shotOn(row-1, column-1)
+		results = [row, column, hitOrMiss]
+		return(results)
 
 	#Displays the result of the last shot (hit/miss, which ship was hit/sunk). If a ship was sunk, check if game has been won. If so, end loop and go to winscreen.
 	# If not, ask to give control to next player and wait for confirmation
@@ -93,28 +113,31 @@ class Executive:
 
 		#clear screen and display the turn
 		clear()
-		print("The turn is " + self.playerTurn)
+		turnNo = str(self.playerTurn)
+		print("The turn is " + turnNo)
 
 		#display where shot
-		print("Shot on row " + turnResult[0] + " and col " + turnResult[1])
+		row = str(turnResults[0])
+		col = str(turnResults[1])
+		print("Shot on row " + row + " and col " + col)
 
 		#display the result of the last shot, and check if that ship was sunk, and check if the game has been won.
 		if(not self.playerTurn):
 			if(turnResults[2] != 0):
 				print("Hit! You hit a " + ShipNames[turnResults[2]-1])
-				if(self.boardTwo.gameLost()):
+				if(self.boardTwo.gameLost() or self.boardOne.gameLost()):
 					endGame = True
 			else:
 				print("You missed!")
-			print("please return control to player 2, input any key when done")
+			print("please return control to player 2, press enter when done")
 		else:
 			if(turnResults[2] != 0):
 				print("Hit! You hit a " + ShipNames[turnResults[2]-1])
-				if(self.boardOne.gameLost()):
+				if(self.boardTwo.gameLost() or self.boardOne.gameLost()):
 					endGame = True
 			else:
 				print("You missed!")
-			print("please return control to player 1, input any key when done")
+			print("please return control to player 1, press enter when done")
 
 		input()
 
@@ -124,10 +147,11 @@ class Executive:
 	def winScreen(self):
 		#Clear screen and display which player won and on what turn
 		clear()
+		round = str(self.roundNum)
 		if self.boardOne.gameLost():
-			print("Player One wins on round " + self.roundNum + "!\n")
+			print("Player Two wins on round " + round + "!\n")
 		elif self.boardTwo.gameLost():
-			print("Player Two wins on round " + self.roundNum + "!\n")
+			print("Player One wins on round " + round + "!\n")
 
 		#Display both board states and thank the player
 		print("Player One's board:\n")
@@ -137,5 +161,3 @@ class Executive:
 		self.boardTwo.printPlayerView()
 		print()
 		print("Thanks for playing!")
-		print("press any button to continue...")
-		input()

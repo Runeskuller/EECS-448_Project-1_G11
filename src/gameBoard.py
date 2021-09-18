@@ -60,12 +60,16 @@ class gameBoard:
 					break
         
     # asserts whether a shot at a given coordinate is a hit or miss
-	def shotOn(self, xPos, yPos):
-		if(self.board[xPos][yPos] == "2" or self.board[xPos][yPos] == "3" or self.board[xPos][yPos] == "4" or self.board[xPos][yPos] == "5"):
-			print("Hit!")
+	def shotOn(self, row, col):
+		if(self.board[row][col] == "0"):
+			self.board[row][col] = '*'
+			return(0)
+		elif(self.board[row][col] == '*' or self.board[row][col] == "X"):
+			return(0)
 		else:
-			print("Miss!")
-            # checkIfSunk()
+			size = int(self.board[row][col])
+			self.board[row][col] = 'X'
+			return(size)
 
 	# Checks the board to see if a specific ship has been sunk. Returns true if no spaces hold the number 'shipSize'. Returns false otherwise
 	def shipSunk(self, shipSize):
@@ -81,7 +85,7 @@ class gameBoard:
 		lost = bool(1)
 		for i in range(self.rows):
 			for j in range(self.columns):
-				if not(self.board[i][j] == 0 or self.board[i][j] == 'X' or self.board[i][j] == '*'):
+				if not(self.board[i][j] == "0" or self.board[i][j] == 'X' or self.board[i][j] == '*'):
 					lost = bool(0)
 		return(lost)
 
