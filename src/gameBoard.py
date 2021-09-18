@@ -241,19 +241,3 @@ class gameBoard:
 				else:
 					print('0', " ", end = '')
 			print()
-
-import os
-import time
-clear = lambda: os.system('cls')
-
-grid1 = gameBoard()
-
-grid1.shotOn(0,4)
-grid1.placeShip(5, 1, 6, 7)
-grid1.placeShip(4, 1, 6, 7)
-grid1.printPlayerView()
-time.sleep(5)
-clear()
-grid1.printOpponentView()
-time.sleep(5)
-clear()
