@@ -36,7 +36,32 @@ class Executive:
 	#Displays the result of the last shot (hit/miss, which ship was hit/sunk). If a ship was sunk, check if game has been won. If so, end loop and go to winscreen.
 	# If not, ask to give control to next player and wait for confirmation
 	def transitionScreen(self, turnResults):
-		pass
+		#ship names variable, for easy output
+		ShipNames=["LifeBoat(size=1)", "The Destroyer(size=2)", "Submarine(size=3)", "BattleShip(size=4)", "Carrier(size=5)", "Cruiser(size=6)"]
+
+		#If this is the return variable, and if it is true, then the game ends
+		endGame = False
+
+		#display the turn
+		print("The turn is " + self.playerTurn)
+
+		#display the result of the last shot, and check if that ship was sunk, and check if the game has been won.
+		if(not self.playerTurn):
+			if(turnResults[2] != 0):
+				print("Hit! You hit a " + ShipNames[turnResults[2]])
+				if(self.boardTwo.gameLost()):
+					endGame = True
+			else:
+				print("You missed!")
+		else:
+			if(turnResults[2] != 0):
+				print("Hit! You hit a " + ShipNames[turnResults[2]])
+				if(self.boardOne.gameLost()):
+					endGame = True
+			else:
+				print("You missed!")
+
+		return endGame
 
 	#Displays both boards and announces the winner
 	def winScreen(self):
