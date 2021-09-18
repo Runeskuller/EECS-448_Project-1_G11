@@ -13,7 +13,7 @@ class Executive:
 	#Calls upon internal methods in order
 	def runGame(self):
 		#variable needed to transfer information from self.takeTurn to self.transition - andrew
-		#turnResult = ? - andrew
+		turnResult = [100, 100, 100]
 
 		#Ask how many ships there will be
 		self.numShips1 = int(input("Player 1: How many ships would you like in your BattleShip game: "))
@@ -25,7 +25,7 @@ class Executive:
 
 		
 		# #Each player takes their turn
-		# self.takeTurn(self.boardOne, self.boardTwo)
+		# turnResult = self.takeTurn(self.boardOne, self.boardTwo)
 
 		# display transition turn for player one, if player one has won break out of loop
 		#if(self.transitionScreen(turnResult))
@@ -34,10 +34,10 @@ class Executive:
 		#increment the playerTurn
 		playerTurn += 1
 
-		# self.takeTurn(self.boardTwo, self.boardOne)
+		# turnResult = self.takeTurn(self.boardTwo, self.boardOne)
 
 		# display transition turn for player two, if player two has won break out of loop
-		#if(self.transitionScreen())
+		#if(self.transitionScreen(turnResult))
 		#	break
 
 		#increment the playerTurn
