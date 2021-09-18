@@ -1,4 +1,4 @@
-import gameBoard.py
+from gameBoard import gameBoard
 import os
 clear = lambda: os.system('cls')
 
@@ -18,7 +18,7 @@ class Executive:
 		turnResult = [0, "A", 0]
 
 		#Ask how many ships there will be
-		self.numShips1 = int(input("Player 1: How many ships would you like in your BattleShip game: ")) #I reread the assignment and I definitely think we need one number of ships for both players - Gavin
+		self.numShips1 = int(input("Player 1: How many ships would you like in your BattleShip game: ")) #I re-read the assignment and I definitely think we need one number of ships for both players - Gavin
 		self.numShips2 = int(input("Player 2: How many ships would you like in your BattleShip game: "))
 
 		#Set up each player's board
