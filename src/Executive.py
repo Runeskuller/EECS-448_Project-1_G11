@@ -1,3 +1,7 @@
+import gameBoard.py
+import os
+clear = lambda: os.system('cls')
+
 class Executive:
 	#Class Attributes
 	playerTurn = 0		# 0 if player one's turn, 1 if player two's turn
@@ -42,7 +46,8 @@ class Executive:
 		#If this is the return variable, and if it is true, then the game ends
 		endGame = False
 
-		#display the turn
+		#clear screen and display the turn
+		clear()
 		print("The turn is " + self.playerTurn)
 
 		#display where shot
@@ -51,15 +56,15 @@ class Executive:
 		#display the result of the last shot, and check if that ship was sunk, and check if the game has been won.
 		if(not self.playerTurn):
 			if(turnResults[2] != 0):
-				print("Hit! You hit a " + ShipNames[turnResults[2]])
+				print("Hit! You hit a " + ShipNames[turnResults[2]-1])
 				if(self.boardTwo.gameLost()):
 					endGame = True
 			else:
 				print("You missed!")
-			print("please return control to player 1, input any key when done")
+			print("please return control to player 2, input any key when done")
 		else:
 			if(turnResults[2] != 0):
-				print("Hit! You hit a " + ShipNames[turnResults[2]])
+				print("Hit! You hit a " + ShipNames[turnResults[2]-1])
 				if(self.boardOne.gameLost()):
 					endGame = True
 			else:
@@ -72,4 +77,18 @@ class Executive:
 
 	#Displays both boards and announces the winner
 	def winScreen(self):
-		pass
+		clear()
+		if self.boardOne.gameLost():
+			print("Player One wins on round " + self.roundNum + "!\n")
+		elif self.boardTwo.gameLost():
+			print("Player Two wins on round " + self.roundNum + "!\n")
+
+		print("Player One's board:\n")
+		self.boardOne.printPlayerView()
+		print()
+		print("Player Two's board:\n")
+		self.boardTwo.printPlayerView()
+		print()
+		print("Thanks for playing!")
+		print("press any button to continue...")
+		input()
