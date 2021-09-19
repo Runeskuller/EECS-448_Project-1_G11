@@ -1,4 +1,4 @@
-Setup:
+Setup input guard testing:
 
 	Orientation:
 		+ Orientation does not accept a letter outside of H or V
@@ -18,3 +18,6 @@ Setup:
 		+ Y-coordinate does not accept an input value that cannot be converted directly into an integer outside of our range
 		+ Y-coordinate does not accept an input value that cannot be converted directly into an integer
 		+ Y-coordinate accepts input values that can be converted directly into an integer inside of our range
+
+	Testing at different points in the setup phase still needs to be done 
+		- i.e. does it still accept all the right values after four or however many ships are placed?
