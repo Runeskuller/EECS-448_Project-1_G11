@@ -16,14 +16,25 @@ class Executive:
 	def runGame(self):
 	#variable needed to transfer information from self.takeTurn to self.transition - andrew
 		turnResult = [0, "A", 0]
-
+		numShipInput = [1, 2, 3, 4, 5, 6]
+		self.numShips = 0
 		#Ask how many ships there will be
-		self.numShips1 = int(input("Player 1: How many ships would you like in your BattleShip game: ")) #I re-read the assignment and I definitely think we need one number of ships for both players - Gavin
-		self.numShips2 = int(input("Player 2: How many ships would you like in your BattleShip game: "))
+		while self.numShips not in numShipInput:
+			try:
+				self.numShips = int(input("How many ships would you like in your BattleShip game? (1-6): "))
+			except ValueError:
+				print("Invalid input. Please try again.")
+				continue
+			if self.numShips not in numShipInput:
+				print("Invalid input. Please try again.")
+
+		
+		# self.numShips1 = int(input("Player 1: How many ships would you like in your BattleShip game: ")) #I re-read the assignment and I definitely think we need one number of ships for both players - Gavin
+		# self.numShips2 = int(input("Player 2: How many ships would you like in your BattleShip game: "))
 
 		#Set up each player's board
-		self.setUp(self.boardOne, self.numShips1)
-		self.setUp(self.boardTwo, self.numShips2)
+		self.setUp(self.boardOne, self.numShips)
+		self.setUp(self.boardTwo, self.numShips)
 
 		gameOver = False
 		while not(gameOver):
