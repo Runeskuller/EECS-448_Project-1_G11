@@ -15,49 +15,44 @@ class gameBoard:
 		return(self.board[row][col])
 
 	# Called when setting up the board. Takes the type of ship, along with the orientation and coordinates for the leftmost or topmost coordinate of the ship.
-	def placeShip(self, size, orientation, row, col): #(1, 4, 5, 4)
+	def placeShip(self, size, orientation, row, col): #i.e. (1, 4, 5, 4)
 		success = False
 		fail = False
 		while not success:
 			if orientation:
-				if row in range(1,9) and col in range(1, 10):
-					if row + size <= 10:
-						for i in range(row, row + size):
-							if self.board[i-1][col-1] != "0":
-								fail = True
+				if row + size <= 10:
+					for i in range(row, row + size):
+						if self.board[i-1][col-1] != "0":
+							fail = True
 
-						if fail:
-							break
-
-						for i in range(row, row + size):
-							if self.board[i-1][col-1] == "0":
-								self.board[i-1][col-1] = str(size)
-								success = True
-					else:
+					if fail:
 						break
+
+					for i in range(row, row + size):
+						if self.board[i-1][col-1] == "0":
+							self.board[i-1][col-1] = str(size)
+							success = True
 				else:
+					fail = True
 					break
 
 			elif not orientation:
-				if row in range(1,9) and col in range(1, 10):
-					print("got 1")
-					if col + size <= 11:
-						print("got 2")
-						for i in range(col, col + size):
-							if self.board[row-1][i-1] != "0":
-								fail = True
+				if col + size <= 11:
+					for i in range(col, col + size):
+						if self.board[row-1][i-1] != "0":
+							fail = True
 
-						if fail:
-							break
-
-						for i in range(col, col + size):
-							if self.board[row-1][i-1] == "0":
-								self.board[row-1][i-1] = str(size)
-								success = True
-					else:
+					if fail:
 						break
+
+					for i in range(col, col + size):
+						if self.board[row-1][i-1] == "0":
+							self.board[row-1][i-1] = str(size)
+							success = True
 				else:
+					fail = True
 					break
+		return(fail)
         
     # asserts whether a shot at a given coordinate is a hit or miss
 	def shotOn(self, row, col):

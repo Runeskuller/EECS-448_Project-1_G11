@@ -57,45 +57,51 @@ class Executive:
 	def setUp(self, gameBoard, numShips):
 		ShipNames=["LifeBoat(size=1)", "The Destroyer(size=2)", "Submarine(size=3)", "BattleShip(size=4)", "Carrier(size=5)", "Cruiser(size=6)"]
 		orientation = True
-		x_coordinates = "0"
-		y_coordinates = 0
-		Input_orientation = "0"
-		
 		alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
 		alphabetInt = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+
 		for i in range(numShips):
-			print(ShipNames[i])
+			failChecker = True
+			while(failChecker == True):
+				x_coordinates = "0"
+				y_coordinates = 0
+				Input_orientation = "0"
 
-			while Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
-				Input_orientation = input("What orientation would you like(H/V)?: ")
-				if Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
-					print("Invalid input. Please try again.")
-			if (Input_orientation =='H' or Input_orientation == 'h'):
-				orientation = False
-			elif (Input_orientation == 'V' or Input_orientation == 'v'):
-				orientation = True
+				print(ShipNames[i])
+			
+				while Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
+					Input_orientation = input("What orientation would you like(H/V)?: ")
+					if Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
+						print("Invalid input. Please try again.")
+				if (Input_orientation =='H' or Input_orientation == 'h'):
+					orientation = False
+				elif (Input_orientation == 'V' or Input_orientation == 'v'):
+					orientation = True
 
-			while x_coordinates not in alphabet:
-				x_coordinates = input("Where do you want the Ship to be placed on x-axis(eg.A): ")
-				if x_coordinates not in alphabet:
-					print("Invalid input. Please try again.")
-			x_coordinates.capitalize()
-			x_coordinates = ord(x_coordinates) - 64
+				while x_coordinates not in alphabet:
+					x_coordinates = input("Where do you want the Ship to be placed on x-axis(eg.A): ")
+					if x_coordinates not in alphabet:
+						print("Invalid input. Please try again.")
+				x_coordinates.capitalize()
+				x_coordinates = ord(x_coordinates) - 64
 
-			while y_coordinates not in alphabetInt:
-				y_coordinates = input("Where do you want the Ship to be placed on y-axis(eg.4): ")
-				if y_coordinates not in alphabetInt:
-					print("Invalid input. Please try again.")
-			y_coordinates = int(y_coordinates)
+				while y_coordinates not in alphabetInt:
+					y_coordinates = input("Where do you want the Ship to be placed on y-axis(eg.4): ")
+					if y_coordinates not in alphabetInt:
+						print("Invalid input. Please try again.")
+				y_coordinates = int(y_coordinates)
 
-			ShipSize = int(i+1)
+				ShipSize = int(i+1)
 
-			#WHY, why does this exist. just submit the input_x_coordinates to the Gameboard!!! - Andrew
-#			for i in range(0, 9):
-#				if(alphabet[i] == Input_x_coordinates):
-#					x_coordinates = i+1 
+				#WHY, why does this exist. just submit the input_x_coordinates to the Gameboard!!! - Andrew
+	#			for i in range(0, 9):
+	#				if(alphabet[i] == Input_x_coordinates):
+	#					x_coordinates = i+1 
 
-			gameBoard.placeShip(ShipSize, orientation, y_coordinates, x_coordinates)
+				failChecker = gameBoard.placeShip(ShipSize, orientation, y_coordinates, x_coordinates)
+				if failChecker == True:
+					print("Unable to place ship!")
 			gameBoard.printPlayerView()
 			# print(x_coordinates)
 			# print(y_coordinates)
