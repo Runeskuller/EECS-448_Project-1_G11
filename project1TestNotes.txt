@@ -1,0 +1,20 @@
+Setup:
+
+	Orientation:
+		+ Orientation does not accept a letter outside of H or V
+		+ Orientation does not accept a non-letter input value
+		+ Orientation does not accept a string of letters including at least one H or V
+		+ Orientation does accept capital H or V
+		+ Orientation does accept lowercase h or v
+
+	X-coordinate:
+		+ X-coordinate does not accept a letter outside of our alphabet
+		+ X-coordinate does not accept a non-letter input value
+		+ X-coordinate does not accept a string of letters including at least one letter inside our alphabet
+		+ X-coordinate does accept capital letters inside our alphabet
+		+ X-coordinate does accept lowercase letters inside our alphabet
+
+	Y-coordinate
+		+ Y-coordinate does not accept an input value that cannot be converted directly into an integer outside of our range
+		+ Y-coordinate does not accept an input value that cannot be converted directly into an integer
+		+ Y-coordinate accepts input values that can be converted directly into an integer inside of our range
