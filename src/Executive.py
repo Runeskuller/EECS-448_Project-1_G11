@@ -16,14 +16,25 @@ class Executive:
 	def runGame(self):
 	#variable needed to transfer information from self.takeTurn to self.transition - andrew
 		turnResult = [0, "A", 0]
-
+		numShipInput = [1, 2, 3, 4, 5, 6]
+		self.numShips = 0
 		#Ask how many ships there will be
-		self.numShips1 = int(input("Player 1: How many ships would you like in your BattleShip game: ")) #I re-read the assignment and I definitely think we need one number of ships for both players - Gavin
-		self.numShips2 = int(input("Player 2: How many ships would you like in your BattleShip game: "))
+		while self.numShips not in numShipInput:
+			try:
+				self.numShips = int(input("How many ships would you like in your BattleShip game? (1-6): "))
+			except ValueError:
+				print("Invalid input. Please try again.")
+				continue
+			if self.numShips not in numShipInput:
+				print("Invalid input. Please try again.")
+
+		
+		# self.numShips1 = int(input("Player 1: How many ships would you like in your BattleShip game: ")) #I re-read the assignment and I definitely think we need one number of ships for both players - Gavin
+		# self.numShips2 = int(input("Player 2: How many ships would you like in your BattleShip game: "))
 
 		#Set up each player's board
-		self.setUp(self.boardOne, self.numShips1)
-		self.setUp(self.boardTwo, self.numShips2)
+		self.setUp(self.boardOne, self.numShips)
+		self.setUp(self.boardTwo, self.numShips)
 
 		gameOver = False
 		while not(gameOver):
@@ -111,6 +122,10 @@ class Executive:
 	#Shows player their view of both game boards, asks for a row and column, then performs a shot. 
 	# ?Returns an array containing [row of shot, column of shot, 0-6 miss/ship hit]?
 	def takeTurn(self, playerBoard, opponentBoard):
+		validRow = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+		validCol = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+		row = 0
+		column = ""
 		clear()
 		print("Enemy's Waters")
 		opponentBoard.printOpponentView()
@@ -118,8 +133,24 @@ class Executive:
 		print("Friendly Territory")
 		playerBoard.printPlayerView()
 		print()
-		row = int(input("Input target row: "))
-		column = input("Input target column: ")
+		while row not in validRow:
+			try:
+				row = int(input("Input target row: "))
+			except ValueError:
+				print("Invalid input. Please try again.")
+				continue
+			if row not in validRow:
+				print("Invalid input. Please try again.")
+		while column not in validCol:
+			column = input("Input target column: ")
+			if column not in validCol:
+				print("Invalid input. Please try again.")
+
+				
+
+
+		# row = int(input("Input target row: "))
+		# column = input("Input target column: ")
 		column.capitalize()
 		column = ord(column) - 64
 		hitOrMiss = opponentBoard.shotOn(row-1, column-1)
