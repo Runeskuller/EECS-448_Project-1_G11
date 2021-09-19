@@ -116,6 +116,10 @@ class Executive:
 	#Shows player their view of both game boards, asks for a row and column, then performs a shot. 
 	# ?Returns an array containing [row of shot, column of shot, 0-6 miss/ship hit]?
 	def takeTurn(self, playerBoard, opponentBoard):
+		validRow = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+		validCol = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
+		row = 0
+		column = ""
 		clear()
 		print("Enemy's Waters")
 		opponentBoard.printOpponentView()
@@ -123,8 +127,24 @@ class Executive:
 		print("Friendly Territory")
 		playerBoard.printPlayerView()
 		print()
-		row = int(input("Input target row: "))
-		column = input("Input target column: ")
+		while row not in validRow:
+			try:
+				row = int(input("Input target row: "))
+			except ValueError:
+				print("Invalid input. Please try again.")
+				continue
+			if row not in validRow:
+				print("Invalid input. Please try again.")
+		while column not in validCol:
+			column = input("Input target column: ")
+			if column not in validCol:
+				print("Invalid input. Please try again.")
+
+				
+
+
+		# row = int(input("Input target row: "))
+		# column = input("Input target column: ")
 		column.capitalize()
 		column = ord(column) - 64
 		hitOrMiss = opponentBoard.shotOn(row-1, column-1)
