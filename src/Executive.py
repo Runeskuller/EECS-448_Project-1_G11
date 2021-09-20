@@ -33,9 +33,13 @@ class Executive:
 		# self.numShips2 = int(input("Player 2: How many ships would you like in your BattleShip game: "))
 
 		#Set up each player's board
-		print ("setting up Player 1's Board")
+		clear()
+		print ("Setting up Player 1's Board")
+		print()
 		self.setUp(self.boardOne, self.numShips)
+		clear()
 		print ("setting up Player 2's Board")
+		print()
 		self.setUp(self.boardTwo, self.numShips)
 
 		gameOver = False
@@ -68,7 +72,7 @@ class Executive:
 
 	#Performs the board setup for one player's board. Ships do not have to be placed in order. Will not let players place ships in an invalid spot
 	def setUp(self, gameBoard, numShips):
-		ShipNames=["LifeBoat(size=1)", "The Destroyer(size=2)", "Submarine(size=3)", "BattleShip(size=4)", "Carrier(size=5)", "Cruiser(size=6)"]
+		ShipNames=["LifeBoat(size=1)", "Destroyer(size=2)", "Submarine(size=3)", "BattleShip(size=4)", "Carrier(size=5)", "Cruiser(size=6)"]
 		orientation = True
 		alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
 		alphabetInt = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -81,11 +85,12 @@ class Executive:
 				y_coordinates = 0
 				Input_orientation = "0"  #this variable used for taking initial orientation input before converting to a bool
 
-				print(ShipNames[i])
+				print("Placing the " + ShipNames[i])
+				print("When placing ships, specify the column and row of the topmost or leftmost tile (based on orientation)")
 			
 				# take in and convert orientation to a bool
 				while Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
-					Input_orientation = input("What orientation would you like(H/V)?: ")
+					Input_orientation = input("How will this ship be oriented? Horizontal(H)/Vertical(V): ")
 					if Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
 						print("Invalid input. Please try again.")
 				if (Input_orientation =='H' or Input_orientation == 'h'):
@@ -95,7 +100,7 @@ class Executive:
 
 				# take in and convert x-coordinate to an int (using ASCII values)
 				while x_coordinates not in alphabet:
-					x_coordinates = input("Where do you want the Ship to be placed on x-axis(eg.A): ")
+					x_coordinates = input("What column do you want the Ship to be placed in? (A-J): ")
 					if x_coordinates not in alphabet:
 						print("Invalid input. Please try again.")
 				x_coordinates = x_coordinates.capitalize()
@@ -103,7 +108,7 @@ class Executive:
 
 				# take in and convert y-coordinate to an int (from associated string)
 				while y_coordinates not in alphabetInt:
-					y_coordinates = input("Where do you want the Ship to be placed on y-axis(eg.4): ")
+					y_coordinates = input("What row do you want the Ship to be placed on? (1-9): ")
 					if y_coordinates not in alphabetInt:
 						print("Invalid input. Please try again.")
 				y_coordinates = int(y_coordinates)
@@ -118,6 +123,7 @@ class Executive:
 			#print the board so players can see where their ship was placed.
 			gameBoard.printPlayerView()
 
+		input("Press enter to continue...")
 
 	#Shows player their view of both game boards, asks for a row and column, then performs a shot. 
 	# ?Returns an array containing [row of shot, column of shot, 0-6 miss/ship hit]?
@@ -127,6 +133,11 @@ class Executive:
 		row = 0
 		column = ""
 		clear()
+		if not(self.playerTurn):
+			print("Player One's Turn")
+		else:
+			print("Player Two's Turn")
+		print()
 		print("Enemy's Waters")
 		opponentBoard.printOpponentView()
 		print()
@@ -168,7 +179,7 @@ class Executive:
 
 		#clear screen and display the turn
 		clear()
-		turnNo = str(self.playerTurn)
+		turnNo = str(self.roundNum)
 		print("The turn is " + turnNo)
 
 		#display where shot
