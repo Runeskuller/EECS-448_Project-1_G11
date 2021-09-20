@@ -164,16 +164,11 @@ class Executive:
 		playerBoard.printPlayerView()
 		print()
 
-<<<<<<< Updated upstream
-		# Takes row and column input from user
-		#This while loop prompts the user for the ship count and repromts until valid input is given.
-=======
 		# Takes column and row input from user
 		while column not in validCol:
 			column = input("Input target column (A-J): ")
 			if column not in validCol:
 				print("Invalid input. Please try again.")
->>>>>>> Stashed changes
 		while row not in validRow:
 			try:
 				row = int(input("Input target row (1-9): "))
