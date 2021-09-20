@@ -165,6 +165,7 @@ class Executive:
 		print()
 
 		# Takes column and row input from user
+		#This while loop prompts the user for the column and row and repromts until valid input is given.
 		while column not in validCol:
 			column = input("Input target column (A-J): ")
 			if column not in validCol:
@@ -206,15 +207,9 @@ class Executive:
 		#check if shot hit
 		if(turnResults[2] != 0):
 			print("Hit!")
-			#check if shot sunk a ship
-			if not self.playerTurn:
-				sunk = self.boardTwo.shipSunk(turnResults[2])
-			elif self.playerTurn:
-				sunk = self.boardOne.shipSunk(turnResults[2])
+			
 			#print results of shot
 			print("You hit a " + ShipNames[turnResults[2]-1])
-			if sunk:
-				print("Enemy " + ShipNames[turnResults[2]-1] + " has been sunk!")
 			
 			#check if the game has been won
 			if(self.boardTwo.gameLost() or self.boardOne.gameLost()):

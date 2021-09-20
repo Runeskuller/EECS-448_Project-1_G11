@@ -70,11 +70,11 @@ class gameBoard:
 
 	# Checks the board to see if a specific ship has been sunk. Returns true if no spaces hold the number 'shipSize'. Returns false otherwise
 	def shipSunk(self, shipSize):
-		sunk = bool(1)
+		sunk = False
 		for i in range(self.rows):
 			for j in range(self.columns):
 				if self.board[i][j] == shipSize:
-					sunk = bool(0)
+					sunk = True
 		return(sunk)
 
 	# Checks if any ships are left unsunk, returns true if there are no spaces on the board representing a ship. Returns false otherwise
