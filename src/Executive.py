@@ -40,6 +40,7 @@ class Executive:
 		clear()
 		print ("setting up Player 2's Board")
 		print()
+
 		self.setUp(self.boardTwo, self.numShips)
 
 		gameOver = False
@@ -89,14 +90,16 @@ class Executive:
 				print("When placing ships, specify the column and row of the topmost or leftmost tile (based on orientation)")
 			
 				# take in and convert orientation to a bool
-				while Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
-					Input_orientation = input("How will this ship be oriented? Horizontal(H)/Vertical(V): ")
-					if Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
-						print("Invalid input. Please try again.")
-				if (Input_orientation =='H' or Input_orientation == 'h'):
-					orientation = False
-				elif (Input_orientation == 'V' or Input_orientation == 'v'):
-					orientation = True
+
+				if (i != 0): #no need to ask for orientation when ship is size 1
+					while Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
+						Input_orientation = input("What orientation would you like(H/V)?: ")
+						if Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
+							print("Invalid input. Please try again.")
+					if (Input_orientation =='H' or Input_orientation == 'h'):
+						orientation = False
+					elif (Input_orientation == 'V' or Input_orientation == 'v'):
+						orientation = True
 
 				# take in and convert x-coordinate to an int (using ASCII values)
 				while x_coordinates not in alphabet:
