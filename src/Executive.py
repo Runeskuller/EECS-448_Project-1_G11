@@ -38,9 +38,8 @@ class Executive:
 		print()
 		self.setUp(self.boardOne, self.numShips)
 		clear()
-		print ("setting up Player 2's Board")
+		print ("Setting up Player 2's Board")
 		print()
-
 		self.setUp(self.boardTwo, self.numShips)
 
 		gameOver = False
@@ -131,10 +130,13 @@ class Executive:
 	#Shows player their view of both game boards, asks for a row and column, then performs a shot. 
 	# ?Returns an array containing [row of shot, column of shot, 0-6 miss/ship hit]?
 	def takeTurn(self, playerBoard, opponentBoard):
+		# Initializing variables for input guards
 		validRow = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 		validCol = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
 		row = 0
 		column = ""
+
+		# Prints player's view of current boardstate
 		clear()
 		if not(self.playerTurn):
 			print("Player One's Turn")
@@ -147,24 +149,22 @@ class Executive:
 		print("Friendly Territory")
 		playerBoard.printPlayerView()
 		print()
+
+		# Takes row and column input from user
 		while row not in validRow:
 			try:
-				row = int(input("Input target row: "))
+				row = int(input("Input target row (1-9): "))
 			except ValueError:
 				print("Invalid input. Please try again.")
 				continue
 			if row not in validRow:
 				print("Invalid input. Please try again.")
 		while column not in validCol:
-			column = input("Input target column: ")
+			column = input("Input target column (A-J): ")
 			if column not in validCol:
 				print("Invalid input. Please try again.")
 
-				
-
-
-		# row = int(input("Input target row: "))
-		# column = input("Input target column: ")
+		# Converts input, takes shot, and records results to output array
 		column = column.capitalize()
 		column = ord(column) - 64
 		hitOrMiss = opponentBoard.shotOn(row-1, column-1)
@@ -174,21 +174,21 @@ class Executive:
 	#Displays the result of the last shot (hit/miss, which ship was hit/sunk). If a ship was sunk, check if game has been won. If so, end loop and go to winscreen.
 	# If not, ask to give control to next player and wait for confirmation
 	def transitionScreen(self, turnResults):
-		#ship names variable, for easy output
+		# Ship names, for easy output
 		ShipNames=["LifeBoat(size=1)", "The Destroyer(size=2)", "Submarine(size=3)", "BattleShip(size=4)", "Carrier(size=5)", "Cruiser(size=6)"]
 
-		#If this is the return variable, and if it is true, then the game ends
+		# This is the return variable, if it is true, then the game ends
 		endGame = False
 
 		#clear screen and display the turn
 		clear()
 		turnNo = str(self.roundNum)
-		print("The turn is " + turnNo)
+		print("Results of round " + turnNo + ": ")
 
 		#display where shot
 		row = str(turnResults[0])
 		col = str(turnResults[1])
-		print("Shot on row " + row + " and col " + col)
+		print("Shot on " + col + row + "... ")
 
 		#display the result of the last shot, and check if that ship was sunk, and check if the game has been won.
 		if(not self.playerTurn):
@@ -197,7 +197,7 @@ class Executive:
 				if(self.boardTwo.gameLost() or self.boardOne.gameLost()):
 					endGame = True
 			else:
-				print("You missed!")
+				print("Missed!")
 			print("please return control to player 2, press enter when done")
 		else:
 			if(turnResults[2] != 0):
@@ -205,7 +205,7 @@ class Executive:
 				if(self.boardTwo.gameLost() or self.boardOne.gameLost()):
 					endGame = True
 			else:
-				print("You missed!")
+				print("Missed!")
 			print("please return control to player 1, press enter when done")
 
 		input()
