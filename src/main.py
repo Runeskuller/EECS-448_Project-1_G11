@@ -1,5 +1,4 @@
-import Executive.py
-import gameBoard.py
+from Executive import Executive
 
 game = Executive()
 game.runGame()
