@@ -33,9 +33,10 @@ class Executive:
 		# self.numShips2 = int(input("Player 2: How many ships would you like in your BattleShip game: "))
 
 		#Set up each player's board
-		print ("setting up Player 1's Board")
+		print ("Setting up Player 1's Board")
 		self.setUp(self.boardOne, self.numShips)
-		print ("setting up Player 2's Board")
+		print ("\n\n\n") 		#buffer so last board print doesn't show when player 2 begins setup
+		print ("Setting up Player 2's Board")
 		self.setUp(self.boardTwo, self.numShips)
 
 		gameOver = False
@@ -84,14 +85,15 @@ class Executive:
 				print(ShipNames[i])
 			
 				# take in and convert orientation to a bool
-				while Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
-					Input_orientation = input("What orientation would you like(H/V)?: ")
-					if Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
-						print("Invalid input. Please try again.")
-				if (Input_orientation =='H' or Input_orientation == 'h'):
-					orientation = False
-				elif (Input_orientation == 'V' or Input_orientation == 'v'):
-					orientation = True
+				if (i != 0): #no need to ask for orientation when ship is size 1
+					while Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
+						Input_orientation = input("What orientation would you like(H/V)?: ")
+						if Input_orientation != "H" and Input_orientation != "V" and Input_orientation != "h" and Input_orientation != "v":
+							print("Invalid input. Please try again.")
+					if (Input_orientation =='H' or Input_orientation == 'h'):
+						orientation = False
+					elif (Input_orientation == 'V' or Input_orientation == 'v'):
+						orientation = True
 
 				# take in and convert x-coordinate to an int (using ASCII values)
 				while x_coordinates not in alphabet:

@@ -15,7 +15,7 @@ class gameBoard:
 		return(self.board[row][col])
 
 	# Called when setting up the board. Takes the type of ship, along with the orientation and coordinates for the leftmost or topmost coordinate of the ship.
-	def placeShip(self, size, orientation, row, col): #i.e. (1, 4, 5, 4)
+	def placeShip(self, size, orientation, row, col): #i.e. (4, True, 5, 4)
 		success = False  #this flag used to end while loop without breaking
 		fail = False     #this flag used to break the loop and return a negative result if the input would lead to invalid placement
 		while not success:
