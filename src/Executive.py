@@ -19,6 +19,7 @@ class Executive:
 		numShipInput = [1, 2, 3, 4, 5, 6]
 		self.numShips = 0
 		#Ask how many ships there will be
+		#This while loop prompts the user for the ship count and repromts until valid input is given.
 		while self.numShips not in numShipInput:
 			try:
 				self.numShips = int(input("How many ships would you like in your BattleShip game? (1-6): "))
@@ -29,8 +30,6 @@ class Executive:
 				print("Invalid input. Please try again.")
 
 		
-		# self.numShips1 = int(input("Player 1: How many ships would you like in your BattleShip game: ")) #I re-read the assignment and I definitely think we need one number of ships for both players - Gavin
-		# self.numShips2 = int(input("Player 2: How many ships would you like in your BattleShip game: "))
 
 		#Set up each player's board
 		clear()
@@ -151,6 +150,7 @@ class Executive:
 		print()
 
 		# Takes row and column input from user
+		#This while loop prompts the user for the ship count and repromts until valid input is given.
 		while row not in validRow:
 			try:
 				row = int(input("Input target row (1-9): "))
