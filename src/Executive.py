@@ -35,15 +35,27 @@ class Executive:
 		clear()
 		print ("Setting up Player 1's Board")
 		print()
+		print("Legend:")
+		print("[X] = Hit, [*] = Miss, [1-6] = Ship, [~] = Open Waters")
+		print()
 		self.setUp(self.boardOne, self.numShips)
 		clear()
 		print ("Setting up Player 2's Board")
 		print()
+		print("Legend:")
+		print("[X] = Hit, [*] = Miss, [1-6] = Ship, [~] = Open Waters")
+		print()
 		self.setUp(self.boardTwo, self.numShips)
+
+		#Small transition between player 2 setup and first turn
+		clear()
+		input("Setup complete. Give control to player 1 and press enter to start game")
 
 		gameOver = False
 		while not(gameOver):
+			#increment roundNum
 			self.roundNum += 1
+
 			#Each player takes their turn
 			turnResult = self.takeTurn(self.boardOne, self.boardTwo)
 
@@ -64,7 +76,7 @@ class Executive:
 
 			#increment the playerTurn
 			self.playerTurn = (self.playerTurn + 1) % 2
-			# #Loop through above logic until someone wins
+			#Loop through above logic until someone wins
 
 		self.winScreen()
 		
@@ -142,6 +154,9 @@ class Executive:
 		else:
 			print("Player Two's Turn")
 		print()
+		print("Legend:")
+		print("[X] = Hit, [*] = Miss, [1-6] = Ship, [~] = Open Waters... as far as you know")
+		print()
 		print("Enemy's Waters")
 		opponentBoard.printOpponentView()
 		print()
@@ -149,8 +164,16 @@ class Executive:
 		playerBoard.printPlayerView()
 		print()
 
+<<<<<<< Updated upstream
 		# Takes row and column input from user
 		#This while loop prompts the user for the ship count and repromts until valid input is given.
+=======
+		# Takes column and row input from user
+		while column not in validCol:
+			column = input("Input target column (A-J): ")
+			if column not in validCol:
+				print("Invalid input. Please try again.")
+>>>>>>> Stashed changes
 		while row not in validRow:
 			try:
 				row = int(input("Input target row (1-9): "))
@@ -159,15 +182,11 @@ class Executive:
 				continue
 			if row not in validRow:
 				print("Invalid input. Please try again.")
-		while column not in validCol:
-			column = input("Input target column (A-J): ")
-			if column not in validCol:
-				print("Invalid input. Please try again.")
 
 		# Converts input, takes shot, and records results to output array
 		column = column.capitalize()
-		column = ord(column) - 64
-		hitOrMiss = opponentBoard.shotOn(row-1, column-1)
+		int_Column = ord(column) - 64
+		hitOrMiss = opponentBoard.shotOn(row-1, int_Column-1)
 		results = [row, column, hitOrMiss]
 		return(results)
 
@@ -175,7 +194,7 @@ class Executive:
 	# If not, ask to give control to next player and wait for confirmation
 	def transitionScreen(self, turnResults):
 		# Ship names, for easy output
-		ShipNames=["LifeBoat(size=1)", "The Destroyer(size=2)", "Submarine(size=3)", "BattleShip(size=4)", "Carrier(size=5)", "Cruiser(size=6)"]
+		ShipNames=["LifeBoat(size=1)", "Destroyer(size=2)", "Submarine(size=3)", "BattleShip(size=4)", "Carrier(size=5)", "Cruiser(size=6)"]
 
 		# This is the return variable, if it is true, then the game ends
 		endGame = False
@@ -189,27 +208,54 @@ class Executive:
 		row = str(turnResults[0])
 		col = str(turnResults[1])
 		print("Shot on " + col + row + "... ")
-
-		#display the result of the last shot, and check if that ship was sunk, and check if the game has been won.
-		if(not self.playerTurn):
-			if(turnResults[2] != 0):
-				print("Hit! You hit a " + ShipNames[turnResults[2]-1])
-				if(self.boardTwo.gameLost() or self.boardOne.gameLost()):
-					endGame = True
-			else:
-				print("Missed!")
-			print("please return control to player 2, press enter when done")
+		#check if shot hit
+		if(turnResults[2] != 0):
+			print("Hit!")
+			#check if shot sunk a ship
+			if not self.playerTurn:
+				sunk = self.boardTwo.shipSunk(turnResults[2])
+			elif self.playerTurn:
+				sunk = self.boardOne.shipSunk(turnResults[2])
+			#print results of shot
+			print("You hit a " + ShipNames[turnResults[2]-1])
+			if sunk:
+				print("Enemy " + ShipNames[turnResults[2]-1] + " has been sunk!")
+			
+			#check if the game has been won
+			if(self.boardTwo.gameLost() or self.boardOne.gameLost()):
+				endGame = True
 		else:
-			if(turnResults[2] != 0):
-				print("Hit! You hit a " + ShipNames[turnResults[2]-1])
-				if(self.boardTwo.gameLost() or self.boardOne.gameLost()):
-					endGame = True
+			print("Missed!")
+
+		#display opponentView of board that got hit
+		print()
+		if not self.playerTurn:
+			print("Player 2's Board:")
+		else:
+			print("Player 1's Board:")
+		print()
+		print("Legend:")
+		print("[X] = Hit, [*] = Miss, [1-6] = Ship, [~] = Open Waters")
+		print()
+		if not self.playerTurn:
+			self.boardTwo.printOpponentView()
+		else:
+			self.boardOne.printOpponentView()
+		print()
+
+		# Prompt user to continue
+		if not endGame:
+			if(not self.playerTurn):
+				print("Please give control to player 2. Player 2, press enter when ready")
 			else:
-				print("Missed!")
-			print("please return control to player 1, press enter when done")
+				print("Please give control to player 1. Player 1, press enter when ready")
+		else:
+			if(not self.playerTurn):
+				print("We have bad news for player 2... press enter when they're ready")
+			else:
+				print("We have bad news for player 1... press enter when they're ready")
 
 		input()
-
 		return endGame
 
 	#Displays both boards and announces the winner
@@ -221,6 +267,10 @@ class Executive:
 			print("Player Two wins on round " + round + "!\n")
 		elif self.boardTwo.gameLost():
 			print("Player One wins on round " + round + "!\n")
+
+		print("Legend:")
+		print("[X] = Hit, [*] = Miss, [1-6] = Ship, [~] = Open Waters")
+		print()
 
 		#Display both board states and thank the player
 		print("Player One's board:\n")

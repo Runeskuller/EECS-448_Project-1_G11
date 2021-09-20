@@ -55,7 +55,7 @@ class gameBoard:
 					fail = True
 					break
 		return(fail)
-        
+
     # asserts whether a shot at a given coordinate is a hit or miss
 	def shotOn(self, row, col):
 		if(self.board[row][col] == "0"):
@@ -98,7 +98,10 @@ class gameBoard:
 		for i in range(self.rows):
 			print(i+1, " ", end = '')
 			for j in range(self.columns):
-				print(self.board[i][j], " ", end = '')
+				if self.board[i][j] == "0":
+					print("~", " ", end = '')
+				else:
+					print(self.board[i][j], " ", end = '')
 			print()
 
 	# Prints the grid, showing only hits and misses
@@ -116,5 +119,5 @@ class gameBoard:
 				if self.board[i][j] == 'X' or self.board[i][j] == '*':
 					print(self.board[i][j], " ", end = '')
 				else:
-					print('0', " ", end = '')
+					print('~', " ", end = '')
 			print()
