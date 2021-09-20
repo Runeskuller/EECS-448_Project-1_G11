@@ -16,13 +16,14 @@ class gameBoard:
 
 	# Called when setting up the board. Takes the type of ship, along with the orientation and coordinates for the leftmost or topmost coordinate of the ship.
 	def placeShip(self, size, orientation, row, col): #i.e. (1, 4, 5, 4)
-		success = False
-		fail = False
+		success = False  #this flag used to end while loop without breaking
+		fail = False     #this flag used to break the loop and return a negative result if the input would lead to invalid placement
 		while not success:
+			#vertical
 			if orientation:
 				if row + size <= 10:
 					for i in range(row, row + size):
-						if self.board[i-1][col-1] != "0":
+						if self.board[i-1][col-1] != "0": #dry run checking if there are any ships in the way of placement
 							fail = True
 
 					if fail:
@@ -30,16 +31,17 @@ class gameBoard:
 
 					for i in range(row, row + size):
 						if self.board[i-1][col-1] == "0":
-							self.board[i-1][col-1] = str(size)
+							self.board[i-1][col-1] = str(size)  #placing ship
 							success = True
 				else:
 					fail = True
 					break
 
+			#horizontal
 			elif not orientation:
 				if col + size <= 11:
 					for i in range(col, col + size):
-						if self.board[row-1][i-1] != "0":
+						if self.board[row-1][i-1] != "0": #dry run checking if there are any ships in the way of placement
 							fail = True
 
 					if fail:
@@ -47,7 +49,7 @@ class gameBoard:
 
 					for i in range(col, col + size):
 						if self.board[row-1][i-1] == "0":
-							self.board[row-1][i-1] = str(size)
+							self.board[row-1][i-1] = str(size)  #placing ship
 							success = True
 				else:
 					fail = True
